@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
+
 
 class Tache extends Model
 {
@@ -10,6 +12,6 @@ class Tache extends Model
 
     public function user()
     {
-    	return $this->belongsTo(User::class);
+    	return $this->belongsTo('App\User');
     }
 }

@@ -15,15 +15,27 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'AccueilController@index')->name('index');
 
-Route::get('/index', 'TacheController@index')->name('tache.index');
+Route::get('/home', 'TacheController@index')->name('tache.index');
 
+Route::get('ajout-tache', 'TacheController@getTache')->name('get.tache');
 Route::post('ajout-tache', 'TacheController@postTache')->name('post.tache');
 
 Route::post('edit-tache/{id}', 'TacheController@update')->name('edit.tache');
 
-Route::post("complete-tache/{id}", "TacheController@complete")->name('complete.tache');
+Route::post('complete-tache/{id}', 'TacheController@complete')->name('complete.tache');
 
-Route::post("complete-tache-destroy/{id}", "TacheController@destroy")->name('complete.tache.destroy');
+Route::post('tache-destroy/{id}', 'TacheController@destroy')->name('tache.destroy');
 
-Route::get('terminer/{id}', 'TacheController@terminer')->name('terminer');
+Route::post('store', 'Auth\RegisterController@store')->name('store');
+
+Route::get('/mon-compte', 'CompteController@index')->name('mon-compte');
+
+Route::post('/mon-copte', 'CompteController@modificationMotDePasse')->name('modification-mot-de-passe');
+
+
+
+Auth::routes();
+
+/*Route::get('/home', 'HomeController@index')->name('home');*/
+
 

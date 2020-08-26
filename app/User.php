@@ -5,7 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use App\Role;
+use App\Tache;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -40,6 +41,20 @@ class User extends Authenticatable
 
      public function taches()
     {
-        return $this->hasMany(Tache::class);
+        return $this->hasMany('App\Tache');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role')->withTimestamps();
+    }
+
+
+    //si la ligne renvoie true on return vrai si non faux
+    //$this->roles() pour acceder au role
+    //where parcq on cherche une seule valeurs a la clé nom
+    public function isAdmin()
+    {
+        return $this->roles()->where('nom', 'Administrateur')->first();
     }
 }

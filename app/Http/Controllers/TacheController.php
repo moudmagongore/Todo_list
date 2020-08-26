@@ -4,17 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tache;
+use Illuminate\Support\Facades\Auth;
 class TacheController extends Controller
 {
+
+
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
-    	/*$tachesEncoures = Tache::orderBy('created_at', 'DESC')->where('statut', 'nonComplete')->orderBy('id', 'DESC')->get();
 
-    	$tachesCompletes = Tache::where('statut', 'complete')->orderBy('id', 'DESC')->get();*/
+    	$user = Auth()->user();
 
-    	$taches = Tache::all();
+    	$taches = Tache::OrderBy('created_at', 'DESC')
+    					->where('user_id', $user->id)->get();
 
-    	return view('taches.index', compact('taches'));
+    	return view('taches.home', compact('taches'));
+    }
+
+    public function getTache()
+    {
+    	return view('taches.create');
     }
 
     public function postTache(Request $request)
@@ -26,13 +40,13 @@ class TacheController extends Controller
 
         $tache = new Tache();
 
-        $tache->user_id = 15/*auth()->user()->id*/;
+        $tache->user_id = auth()->user()->id;
         $tache->nom = $request->tache;
         $tache->description = $request->description;
 
         $tache->save();
 
-    	return back()->with('success', 'La tâche à bien été ajouté.');
+    	return redirect()->route('tache.index')->with('success', 'La tâche à bien été ajouté.');
     }
 
 
@@ -64,15 +78,6 @@ class TacheController extends Controller
 
     }
 
-
-    public function terminer(Request $request, $id)
-    {
-    	$taches = Tache::find($id);
-
-    	if ($taches->statut === 'complete') {
-    		return back()->with('danger', 'Desolé la tâche est déjà terminé.');
-    	}
-    }
 
 
     public function destroy(Request $request, $id)
