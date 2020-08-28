@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<div class="container card shadow mb-4 col-md-6">                  
+	<div class="container card shadow mb-4 col-md-5">                  
 	    <div class="card-body">
 	        <div class="card-header py-3 mb-4">
 	            <h6 class="m-0 font-weight-bold text-primary">Modification mot de passe</h6>

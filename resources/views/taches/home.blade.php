@@ -28,7 +28,7 @@
                             <tr>
                             <td>
                                 @if($tache->statut == 'complete')
-                                    <i style="color: red;" class="fa fa-check-circle" aria-hidden="true"></i>
+                                    <i style="color: #7ed7a4;" class="fa fa-check-circle" aria-hidden="true"></i>
                                 @endif
 
                                 {{$tache->nom}}
@@ -45,13 +45,13 @@
                                         @if ($tache->statut == 'nonComplete')
                                             <a href="" class="btn btn-primary" data-toggle="modal" data-target="#addcompleter{{$tache->id}}"><i class=""></i>completer</a>
                                         @elseif($tache->statut == 'complete')
-                                            <button name="terminer" value="terminer" class="btn btn-danger" disabled><i class="fa fa-check "></i></button>
+                                            <button name="terminer" value="terminer" class="btn btn-success" disabled><i class="fa fa-check "></i></button>
                                         @endif
 
                                         @if ($tache->statut == 'nonComplete')
                                             <a class="btn btn-warning"><i class="fa fa-pencil-square-o" data-toggle="modal" data-target="#edittache{{$tache->id}}"></i></a>
 
-                                            <button type="submit" name="Supprimer" value="Supprimer" class="btn btn-success"><i class="fa fa-trash"></i></button>
+                                            <button type="submit" name="Supprimer" value="Supprimer" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                         @endif
 
                                         

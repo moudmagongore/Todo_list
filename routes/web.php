@@ -13,7 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', 'AccueilController@index')->name('index');
+
+Route::group([
+
+		'middleware' => 'App\Http\Middleware\Auth',
+
+], function(){
 
 Route::get('/home', 'TacheController@index')->name('tache.index');
 
@@ -31,11 +38,8 @@ Route::post('store', 'Auth\RegisterController@store')->name('store');
 Route::get('/mon-compte', 'CompteController@index')->name('mon-compte');
 
 Route::post('/mon-copte', 'CompteController@modificationMotDePasse')->name('modification-mot-de-passe');
-
-
+});
 
 Auth::routes();
-
-/*Route::get('/home', 'HomeController@index')->name('home');*/
 
 
