@@ -20,8 +20,6 @@ class Auth
             
             return redirect()->route('login')->with('danger', 'Vous devez être connecté pour voir cette page.');
         }
-
-        
         return $next($request);
     }
 }
