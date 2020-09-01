@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 
+use App\Role;
+
+
 class RegisterController extends Controller
 {
     /*
@@ -24,7 +27,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+   /* use RegistersUsers;*/
 
     /**
      * Where to redirect users after registration.
@@ -65,18 +68,21 @@ class RegisterController extends Controller
      * @return \App\User
      */
     
-    /*protected function create(array $data)
+    public function showRegistrationForm()
     {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+         //si sa retourne vrai c a d l'user na pas admin dans ses roles
+        if (Gate::denies('add-users')) {
 
-        $user->roles()->attach(request('role'));
+            return back();
+        }
 
-        return $user;
-    }*/
+        $roles = Role::all();
+
+
+        return view('auth.register', compact('roles'));
+    }
+
+
 
     public function store(Request $request)
     {
